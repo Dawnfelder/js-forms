@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average age calculator</title>
+</head>
+
+<body>
+    <h1>Medical study</h1>
+    <p>Please complete this form in order to participate in the medical study.</p>
+    <!-- form hat collects users' name, age, and consent for a medical study -->
+
+    <form id="application-form" onsubmit="completeForm(event)">
+
+        <!-- name -->
+        <div class="form-row">
+            <label for="fullname">Full name:</label>
+            <br>
+            <input type="text" name="fullname" id="fullname" required>
+            <br><br>
+        </div>
+
+        <!-- age -->
+        <div class="form-row">
+            <label for="age">Age:</label>
+            <br>
+            <input type="number" name="age" id="age" required>
+            <br><br>
+        </div>
+
+        <!-- email -->
+        <div class="form-row">
+            <label for="email">Email address:</label>
+            <br>
+            <input type="email" name="email" id="email" required>
+            <br><br>
+        </div>
+
+        <!-- consent -->
+        <div class="form-row">
+            <input type="checkbox" name="consent" id="consent" required>
+            <label for="consent">I have read the <a href="#">terms & conditions</a> and I consent.</label>
+            <br><br>
+        </div>
+
+        <button type="submit" onclick="completeForm(event)">Submit</button>
+    </form>
+
+    <script>
+        const people = []; //empty array
+        let averageAge = 0; //average age variable initialised to 0
+
+        function completeForm(event) { //function to be called upon form submission
+            event.preventDefault();
+            const fname = document.getElementById('fullname').value;
+            const age = parseInt(document.getElementById('age').value);
+            const email = document.getElementById('email').value;
+            const consent = document.getElementById('consent').value;
+            console.log(fname, age, email, consent); //each input field value assigned a variable
+
+            const person = { //each form submission becomes an object, values of the input fields become the values of the properties of the object
+                first_name: fname, 
+                age: age, 
+                email: email, 
+                consent: consent,
+            };
+
+            console.log(person); //logs the newly created object to the console
+            people.push(person); //adds the newly created object to the array
+            console.log(people); //logs the now augmented array to the console
+
+            findAverageAge(); //runs the below function
+            console.log("Average age of participants:" + averageAge); //logs new average to the console
+        }
+
+        function findAverageAge() {
+            let totalAge = 0; //initialise total age to 0
+            for (let i = 0; i < people.length; i++) { //start for loop at 0 and run every time a new person is added to the people array
+                totalAge += people[i].age; //add together the values of the age property of the person objects in the people array
+            }
+            averageAge = totalAge / people.length; //self explanatory
+        }
+    </script>
+    
+</body>
+</html>
